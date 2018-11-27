@@ -18,7 +18,7 @@ import javax.swing.JFrame;
  * @author tbbryant@aggies.ncat.edu
  * @author gcspence@aggies.ncat.edu
  */
- public class TicTacToeTwo extends JFrame implements ActionListener {
+ public class TicTacToe extends JFrame implements ActionListener {
    /* Width of the game board. */
    private int width;
    /* Height of the game board. */
@@ -36,7 +36,7 @@ import javax.swing.JFrame;
     * @param width: is the number of columns in the board
     */
    
-   public TicTacToeTwo(int height, int width) {
+   public TicTacToe(int height, int width) {
      this.width = width;
      this.height = height;
      buttons = new JButton[height][width];
@@ -45,6 +45,7 @@ import javax.swing.JFrame;
      Container pane = getContentPane();
      setLayout(new GridBagLayout());
      setPreferredSize(new Dimension(500,500));
+     Font font = new Font("SansSerif", Font.BOLD, 30);
      GridBagConstraints gbc = new GridBagConstraints();
      gbc.weightx = gbc.weighty = 1.0;
      gbc.fill = GridBagConstraints.BOTH;
@@ -58,6 +59,9 @@ import javax.swing.JFrame;
             buttons[r][c] = button;
             
             button.addActionListener(this);
+            
+            button.setFont(font);
+
           }
      }
      pack();
@@ -77,14 +81,11 @@ import javax.swing.JFrame;
         }
         alternate++;
      } 
-     
      /**
       * Invoke TicTacToe game from the main() method.
       * @param args tokens from the command line.
       */
      public static void main(String[] args) {
-       TicTacToeTwo game = new TicTacToeTwo(3,3);
+       TicTacToe game = new TicTacToe(3,3);
    }
 }
-
-   
