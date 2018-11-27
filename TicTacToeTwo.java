@@ -79,7 +79,7 @@ import javax.swing.JFrame;
      } 
      
      /**
-      * Invoke from the main() method.
+      * Invoke TicTacToe game from the main() method.
       * @param args tokens from the command line.
       */
      public static void main(String[] args) {
