@@ -63,13 +63,9 @@ public class TicTacToe extends JFrame implements ActionListener {
             gbc.gridx = c;
             gbc.gridy = r;
             pane.add(button, gbc);
-            
             buttons[r][c] = button;
-            
             button.addActionListener(this);
-            
             button.setFont(font);
-         
          }
       }
      
@@ -82,7 +78,6 @@ public class TicTacToe extends JFrame implements ActionListener {
       * @param: click ActionEvent for method. 
       */
    public void actionPerformed(ActionEvent click) {
-      
       JButton button = (JButton)click.getSource();
       if (alternate%2==0) {
          button.setText("X");
