@@ -19,7 +19,7 @@ import javax.swing.JFrame;
  * @author tbbryant@aggies.ncat.edu
  * @author gcspence@aggies.ncat.edu
  */
- public class TicTacToe extends JFrame implements ActionListener {
+public class TicTacToe extends JFrame implements ActionListener {
    /* Width of the game board. */
    private int width;
    /* Height of the game board. */
@@ -43,21 +43,21 @@ import javax.swing.JFrame;
     */
 
    public TicTacToe(int height, int width) {
-     this.width = width;
-     this.height = height;
-     cells = new boolean[height][width];
-     buttons = new JButton[height][width];
-     Container pane = getContentPane();
-     setTitle("Let's play TicTacToe! Player 1 make your move.");
+      this.width = width;
+      this.height = height;
+      cells = new boolean[height][width];
+      buttons = new JButton[height][width];
+      Container pane = getContentPane();
+      setTitle("Let's play TicTacToe! Player 1 make your move.");
      // Set up the GridBagLayout then add buttons to the pane.
-     setLayout(new GridBagLayout());
-     setPreferredSize(new Dimension(500,500));
-     Font font = new Font("SansSerif", Font.BOLD, 30);
-     GridBagConstraints gbc = new GridBagConstraints();
-     gbc.weightx = gbc.weighty = 1.0;
-     gbc.fill = GridBagConstraints.BOTH;
+      setLayout(new GridBagLayout());
+      setPreferredSize(new Dimension(500,500));
+      Font font = new Font("SansSerif", Font.BOLD, 30);
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.weightx = gbc.weighty = 1.0;
+      gbc.fill = GridBagConstraints.BOTH;
      
-     for (int r = 0; r < height; r++) {
+      for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {
             JButton button = new JButton();
             gbc.gridx = c;
@@ -69,56 +69,66 @@ import javax.swing.JFrame;
             button.addActionListener(this);
             
             button.setFont(font);
-
-          }
-     }
+         
+         }
+      }
      
-     pack();
-     setVisible(true);
-     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     }
+      pack();
+      setVisible(true);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+   }
      /** 
       * Click once button for "X", click twice for "O".
-      * @param click ActionEvent for method. 
+      * @param: click ActionEvent for method. 
       */
-      public void actionPerformed(ActionEvent click) {
+   public void actionPerformed(ActionEvent click) {
       
-        JButton button = (JButton)click.getSource();
-        if (alternate%2==0) {
-        button.setText("X");
-        setTitle("Let's play TicTacToe! Player 2 make your move."); 
-        } else { 
-        button.setText("O");
-        setTitle("Let's play TicTacToe! Player 1 make your move."); 
-        }
-        if (checkWin(buttons) == true) {
-          int dialog;
-          dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
-          if(dialog == 0) {
+      JButton button = (JButton)click.getSource();
+      if (alternate%2==0) {
+         button.setText("X");
+      } else { 
+         button.setText("O");
+      }
+      if (checkWin(buttons) == true) {
+         int dialog;
+         dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
+         if(dialog == 0) {
             resetButtons();
-           }
-        }
-        alternate++;
+         }
+      }
+      alternate++;
         
      
-     }
-     
-     private boolean isGameOver() {
-       return cells[0][0] == false;
-  }
+   }
+   
+   /**
+    * Game is over.
+    */  
+   private boolean isGameOver() {
+      return cells[0][0] == false;
+   }
+   
+   /** 
+    * After game is over hit resetButton to restart the game.
+    */ 
 
-     public void resetButtons() {
-       for (int r = 0; r < height; r++) {
+   public void resetButtons() {
+      for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {  
-          cells[r][c] = true;
-          buttons[r][c].setText(" ");
-          }
-     }
-     }
-    
+            cells[r][c] = true;
+            buttons[r][c].setText(" ");
+         }
+      }
+   }
+   
+   /** 
+    * Check different types of wins. Horizontal, Vertical, Diagonal. 
+    * @param buttons array of where the button is. 
+    * @return Ends game and prompt the user to start another game. 
+    */ 
       
-     public boolean checkWin(JButton[][] buttons) {
-         boolean win;
+   public boolean checkWin(JButton[][] buttons) {
+      boolean win;
          
       if(buttons[0][0].getText().equals((String)buttons[0][1].getText()) && buttons[0][1].getText().equals((String)buttons[0][2].getText())) {
          win = true;
@@ -153,24 +163,24 @@ import javax.swing.JFrame;
          win = true;
          winner = (String)buttons[0][2].getText();  
       
-     } else {
+      } else {
          win = false;
          winner = "tie";
       }
       
       if(win == true && winner.equals("")) {
          win = false;
-       }
+      }
       return win;
-      } 
+   } 
       
       
      /**
       * Invoke TicTacToe game from the main() method.
       * @param args tokens from the command line.
       */
-     public static void main(String[] args) {
-       TicTacToe game = new TicTacToe(3,3);
+   public static void main(String[] args) {
+      TicTacToe game = new TicTacToe(3,3);
       
    }
 }
