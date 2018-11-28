@@ -63,11 +63,8 @@ public class TicTacToe extends JFrame implements ActionListener {
             gbc.gridx = c;
             gbc.gridy = r;
             pane.add(button, gbc);
-            
             buttons[r][c] = button;
-            
             button.addActionListener(this);
-            
             button.setFont(font);
          
          }
