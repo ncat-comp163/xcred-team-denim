@@ -80,7 +80,23 @@ import javax.swing.JFrame;
         button.setText("O");
         }
         alternate++;
-     } 
+     }
+    
+      
+     public boolean checkWin(int r, int c) {
+         boolean win;
+         String winner = "";
+      if(buttons[r][0].equals(buttons[r][1]) && buttons[r][1].equals(buttons[r][2])) {
+         win = true;
+         winner = (String)buttons[r][0].getText();
+      } else {
+         win = false;
+         //String winner = "tie";
+      }
+      return win;
+      } 
+      
+      
      /**
       * Invoke TicTacToe game from the main() method.
       * @param args tokens from the command line.
@@ -89,3 +105,4 @@ import javax.swing.JFrame;
        TicTacToe game = new TicTacToe(3,3);
    }
 }
+
