@@ -86,8 +86,10 @@ import javax.swing.JFrame;
         JButton button = (JButton)click.getSource();
         if (alternate%2==0) {
         button.setText("X");
+        setTitle("Let's play TicTacToe! Player 2 make your move."); 
         } else { 
         button.setText("O");
+        setTitle("Let's play TicTacToe! Player 1 make your move."); 
         }
         if (checkWin(buttons) == true) {
           int dialog;
