@@ -100,14 +100,6 @@ public class TicTacToe extends JFrame implements ActionListener {
         
      
    }
-   
-   /**
-    * Game is over.
-    */  
-   private boolean isGameOver() {
-      return cells[0][0] == false;
-   }
-   
    /** 
     * After game is over hit resetButton to restart the game.
     */ 
