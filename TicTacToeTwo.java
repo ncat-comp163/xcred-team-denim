@@ -112,7 +112,24 @@ public class TicTacToe extends JFrame implements ActionListener {
          }
       }
    }
-   
+   public boolean isDraw() {
+      for (int r = 0; r < height; r++) {
+         for (int c = 0; c < width; c++) {  
+           if (cells[r][c] = true) {
+             int dialog;
+             dialog = JOptionPane.showConfirmDialog(null, "Tie! New Game?");
+             if(dialog == 0) {
+               resetButtons();
+             } else if (dialog == 1 || dialog == 2) {
+               super.dispose();
+             }
+             return true;
+         }
+      }
+   }
+   return false;
+   }
+
    /** 
     * Check different types of wins. Horizontal, Vertical, Diagonal. 
     * @param buttons array of where the button is. 
