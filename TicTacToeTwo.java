@@ -111,11 +111,11 @@ import javax.swing.JFrame;
          boolean win;
          
          
-      
+            /*
             System.out.println(buttons[0][0].getText());
              System.out.println(buttons[0][1].getText());
               System.out.println(buttons[0][2].getText());
-
+            */
    System.out.println(buttons[0][1].equals((String)buttons[0][2].getText()));
 
       if(buttons[0][0].getText().equals((String)buttons[0][1].getText()) && buttons[0][1].getText().equals((String)buttons[0][2].getText())) {
@@ -139,9 +139,9 @@ import javax.swing.JFrame;
          win = true;
          winner = (String)buttons[0][1].getText();
       
-      } else if(buttons[2][2].getText().equals((String)buttons[1][2].getText()) && buttons[1][2].getText().equals((String)buttons[2][2].getText())) {
+      } else if(buttons[0][2].getText().equals((String)buttons[1][2].getText()) && buttons[1][2].getText().equals((String)buttons[2][2].getText())) {
          win = true;
-         winner = (String)buttons[2][2].getText();
+         winner = (String)buttons[0][2].getText();
       
       
       } else if(buttons[0][0].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[2][2].getText())) {
@@ -156,6 +156,10 @@ import javax.swing.JFrame;
          win = false;
          winner = "tie";
       }
+      
+      if(win == true && winner.equals("")) {
+         win = false;
+       }
       return win;
       } 
       
