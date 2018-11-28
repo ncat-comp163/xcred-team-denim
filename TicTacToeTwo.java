@@ -90,11 +90,14 @@ public class TicTacToe extends JFrame implements ActionListener {
          button.setText("O");
       }
       if (checkWin(buttons) == true) {
-         int dialog;
-         dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
-         if(dialog == 0) {
+          int dialog;
+          dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
+          if(dialog == 0) {
             resetButtons();
-         }
+           } else if (dialog == 1 || dialog == 2) {
+             super.dispose();
+          }
+        }
       }
       alternate++;
         
