@@ -114,7 +114,7 @@ public class TicTacToe extends JFrame implements ActionListener {
       for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {  
             cells[r][c] = true;
-            buttons[r][c].setText(" ");
+            buttons[r][c].setText("");
          }
       }
    }
