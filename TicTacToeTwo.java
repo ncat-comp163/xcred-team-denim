@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
 /**
@@ -28,8 +29,9 @@ import javax.swing.JFrame;
    /* The current player number, either 1 or 2. */
    private int player;
    /* Going from "X" to "O" */
-   int alternate = 0;
+   double alternate = 0;
   
+   public String winner;
    /** 
     * Constructor for the TicTacToe board.
     * @param height: is the number of rows in the board
@@ -49,6 +51,7 @@ import javax.swing.JFrame;
      GridBagConstraints gbc = new GridBagConstraints();
      gbc.weightx = gbc.weighty = 1.0;
      gbc.fill = GridBagConstraints.BOTH;
+     
      for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {
             JButton button = new JButton();
@@ -64,6 +67,7 @@ import javax.swing.JFrame;
 
           }
      }
+     
      pack();
      setVisible(true);
      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,25 +77,84 @@ import javax.swing.JFrame;
       * @param click ActionEvent for method. 
       */
       public void actionPerformed(ActionEvent click) {
+      
         JButton button = (JButton)click.getSource();
         if (alternate%2==0) {
         button.setText("X");
         } else { 
         button.setText("O");
         }
+        if (checkWin(buttons) == true) {
+            JOptionPane.showConfirmDialog(null, "Game Over");
+        resetButtons();
+        }
         alternate++;
+        
+     
+     }
+     
+     public void resetButtons() {
+         for (int r = 0; r < height; r++) {
+         for (int c = 0; c < width; c++) {
+         JButton button2 = new JButton();   
+            
+            
+            buttons[r][c] = button2;
+            button2.setText(" ");
+
+          }
+     }
      }
     
       
-     public boolean checkWin(int r, int c) {
+     public boolean checkWin(JButton[][] buttons) {
          boolean win;
-         String winner = "";
-      if(buttons[r][0].equals(buttons[r][1]) && buttons[r][1].equals(buttons[r][2])) {
+         
+         
+      
+            System.out.println(buttons[0][0].getText());
+             System.out.println(buttons[0][1].getText());
+              System.out.println(buttons[0][2].getText());
+
+   System.out.println(buttons[0][1].equals((String)buttons[0][2].getText()));
+
+      if(buttons[0][0].getText().equals((String)buttons[0][1].getText()) && buttons[0][1].getText().equals((String)buttons[0][2].getText())) {
          win = true;
-         winner = (String)buttons[r][0].getText();
-      } else {
+         winner = (String)buttons[0][0].getText();
+         //System.out.println("success");
+      
+      } else if (buttons[1][0].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[1][2].getText())) {
+         win = true;
+         winner = (String)buttons[1][0].getText();
+      
+      } else if(buttons[2][0].getText().equals((String)buttons[2][1].getText()) && buttons[2][1].getText().equals((String)buttons[2][2].getText())) {
+         win = true;
+         winner = (String)buttons[2][0].getText();
+         
+      } else if(buttons[0][0].getText().equals((String)buttons[1][0].getText()) && buttons[1][0].getText().equals((String)buttons[2][0].getText())) {
+         win = true;
+         winner = (String)buttons[0][0].getText();
+         
+      } else if(buttons[0][1].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[2][1].getText())) {
+         win = true;
+         winner = (String)buttons[0][1].getText();
+      
+      } else if(buttons[2][2].getText().equals((String)buttons[1][2].getText()) && buttons[1][2].getText().equals((String)buttons[2][2].getText())) {
+         win = true;
+         winner = (String)buttons[2][2].getText();
+      
+      
+      } else if(buttons[0][0].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[2][2].getText())) {
+         win = true;
+         winner = (String)buttons[0][0].getText();
+         
+      } else if(buttons[0][2].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[2][0].getText())) {
+         win = true;
+         winner = (String)buttons[0][2].getText();  
+      
+     } else {
          win = false;
-         //String winner = "tie";
+         winner = "tie";
       }
       return win;
       } 
@@ -103,6 +166,6 @@ import javax.swing.JFrame;
       */
      public static void main(String[] args) {
        TicTacToe game = new TicTacToe(3,3);
+      
    }
 }
-
