@@ -32,19 +32,24 @@ import javax.swing.JFrame;
    double alternate = 0;
   
    public String winner;
+   /* 2D array of JButtons that check whether the JButton needs to be cleared or not
+    * for a new game. */
+   private boolean[][] cells;
+
    /** 
     * Constructor for the TicTacToe board.
     * @param height: is the number of rows in the board
     * @param width: is the number of columns in the board
     */
-   
+
    public TicTacToe(int height, int width) {
      this.width = width;
      this.height = height;
+     cells = new boolean[height][width];
      buttons = new JButton[height][width];
+     Container pane = getContentPane();
      setTitle("Let's play TicTacToe! Player 1 make your move.");
      // Set up the GridBagLayout then add buttons to the pane.
-     Container pane = getContentPane();
      setLayout(new GridBagLayout());
      setPreferredSize(new Dimension(500,500));
      Font font = new Font("SansSerif", Font.BOLD, 30);
@@ -85,23 +90,26 @@ import javax.swing.JFrame;
         button.setText("O");
         }
         if (checkWin(buttons) == true) {
-            JOptionPane.showConfirmDialog(null, "Game Over");
-        resetButtons();
+          int dialog;
+          dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
+          if(dialog == 0) {
+            resetButtons();
+           }
         }
         alternate++;
         
      
      }
      
-     public void resetButtons() {
-         for (int r = 0; r < height; r++) {
-         for (int c = 0; c < width; c++) {
-         JButton button2 = new JButton();   
-            
-            
-            buttons[r][c] = button2;
-            button2.setText(" ");
+     private boolean isGameOver() {
+       return cells[0][0] == false;
+  }
 
+     public void resetButtons() {
+       for (int r = 0; r < height; r++) {
+         for (int c = 0; c < width; c++) {  
+          cells[r][c] = true;
+          buttons[r][c].setText(" ");
           }
      }
      }
@@ -110,18 +118,9 @@ import javax.swing.JFrame;
      public boolean checkWin(JButton[][] buttons) {
          boolean win;
          
-         
-            /*
-            System.out.println(buttons[0][0].getText());
-             System.out.println(buttons[0][1].getText());
-              System.out.println(buttons[0][2].getText());
-            */
-   System.out.println(buttons[0][1].equals((String)buttons[0][2].getText()));
-
       if(buttons[0][0].getText().equals((String)buttons[0][1].getText()) && buttons[0][1].getText().equals((String)buttons[0][2].getText())) {
          win = true;
          winner = (String)buttons[0][0].getText();
-         //System.out.println("success");
       
       } else if (buttons[1][0].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[1][2].getText())) {
          win = true;
