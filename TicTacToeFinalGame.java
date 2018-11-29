@@ -26,22 +26,16 @@ public class TicTacToe extends JFrame implements ActionListener {
    private int height;
    /* 2D array of JButtons used to display 'X' or 'O' and to take action events. */
    private JButton[][] buttons;
-   /* The current player number, either 1 or 2. */
-   private int player;
-   /* Going from "X" to "O" */
-   double alternate = 0;
-  
-   public String winner;
    /* 2D array of JButtons that check whether the JButton needs to be cleared or not
     * for a new game. */
    private boolean[][] cells;
-
+   /* Alternates between 'X' and 'O' characters. */
+   double alternate = 0;
    /** 
     * Constructor for the TicTacToe board.
     * @param height: is the number of rows in the board
     * @param width: is the number of columns in the board
     */
-
    public TicTacToe(int height, int width) {
       this.width = width;
       this.height = height;
@@ -49,14 +43,14 @@ public class TicTacToe extends JFrame implements ActionListener {
       buttons = new JButton[height][width];
       Container pane = getContentPane();
       setTitle("Let's play TicTacToe! Player 1 make your move.");
-     // Set up the GridBagLayout then add buttons to the pane.
+      //Set up the GridBagLayout then add buttons to the pane.
       setLayout(new GridBagLayout());
       setPreferredSize(new Dimension(500,500));
       Font font = new Font("SansSerif", Font.BOLD, 30);
       GridBagConstraints gbc = new GridBagConstraints();
       gbc.weightx = gbc.weighty = 1.0;
       gbc.fill = GridBagConstraints.BOTH;
-     
+      //Nested for loop fills in buttons using 2D array.
       for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {
             JButton button = new JButton();
@@ -68,13 +62,12 @@ public class TicTacToe extends JFrame implements ActionListener {
             button.setFont(font);
          }
       }
-     
       pack();
       setVisible(true);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
      /** 
-      * Click once button for "X", click twice for "O".
+      * Click button odd number of times for "X", click even number of times for "O".
       * @param: click ActionEvent for method. 
       */
    public void actionPerformed(ActionEvent click) {
@@ -85,25 +78,21 @@ public class TicTacToe extends JFrame implements ActionListener {
       } else { 
          button.setText("O");
          setTitle("Let's play TicTacToe! Player 2 make your move.");
-
       }
       if (checkWin(buttons) == true) {
-          int dialog;
-          dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
-          if(dialog == 0) {
+         int dialog;
+         dialog = JOptionPane.showConfirmDialog(null, "Game Over! New Game?");
+         if(dialog == 0) {
             resetButtons();
-           } else if (dialog == 1 || dialog == 2) {
-             super.dispose();
-          }
+         } else if (dialog == 1 || dialog == 2) {
+            super.dispose();
+         }
       }
       alternate++;
-        
-     
    }
    /** 
-    * After game is over hit resetButton to restart the game.
+    * Resets game back to blank gameboard after win.
     */ 
-
    public void resetButtons() {
       for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {  
@@ -113,33 +102,38 @@ public class TicTacToe extends JFrame implements ActionListener {
          }
       }
    }
+   /**
+    * Determines if there are any playable tiles on the game board.
+    * If there isn't, the game ends in a draw, notifies the user 
+    * and gives prompts for new game. If there are playable tiles,
+    * game play continues until winner or draw.
+    */
    public boolean isDraw() {
       for (int r = 0; r < height; r++) {
          for (int c = 0; c < width; c++) {  
-           if (cells[r][c] = true) {
-             int dialog;
-             dialog = JOptionPane.showConfirmDialog(null, "Tie! New Game?");
-             if(dialog == 0) {
-               resetButtons();
-             } else if (dialog == 1 || dialog == 2) {
-               super.dispose();
-             }
-             return true;
+            if (cells[r][c] = true) {
+               int dialog;
+               dialog = JOptionPane.showConfirmDialog(null, "Tie! New Game?");
+               if(dialog == 0) {
+                  resetButtons();
+               } else if (dialog == 1 || dialog == 2) {
+                  super.dispose();
+               }
+               return true;
+            }
          }
       }
+      return false;
    }
-   return false;
-   }
-
    /** 
-    * Check different types of wins. Horizontal, Vertical, Diagonal. 
-    * @param buttons array of where the button is. 
-    * @return Ends game and prompt the user to start another game. 
-    */ 
-      
+    * Check different types of wins. Horizontal, Vertical, and Diagonal. 
+    * @param buttons 2D array of JButtons used to display 'X' or 'O'
+    * and to take action events.
+    * @return Ends game and prompts the user to start another game. 
+    */  
    public boolean checkWin(JButton[][] buttons) {
       boolean win;
-         
+      String winner;   
       if(buttons[0][0].getText().equals((String)buttons[0][1].getText()) && buttons[0][1].getText().equals((String)buttons[0][2].getText())) {
          win = true;
          winner = (String)buttons[0][0].getText();
@@ -164,7 +158,6 @@ public class TicTacToe extends JFrame implements ActionListener {
          win = true;
          winner = (String)buttons[0][2].getText();
       
-      
       } else if(buttons[0][0].getText().equals((String)buttons[1][1].getText()) && buttons[1][1].getText().equals((String)buttons[2][2].getText())) {
          win = true;
          winner = (String)buttons[0][0].getText();
@@ -182,15 +175,12 @@ public class TicTacToe extends JFrame implements ActionListener {
          win = false;
       }
       return win;
-   } 
-      
-      
+   }  
      /**
       * Invoke TicTacToe game from the main() method.
       * @param args tokens from the command line.
       */
    public static void main(String[] args) {
       TicTacToe game = new TicTacToe(3,3);
-      
    }
 }
